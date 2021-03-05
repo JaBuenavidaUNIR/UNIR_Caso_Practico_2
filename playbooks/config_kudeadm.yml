@@ -1,0 +1,11 @@
+---
+
+- name: Configurar Kudeadm
+  hosts: [master]
+  become: true
+
+  tasks:
+    
+    - name: Descargar imagenes para kudeadm
+      command: kubeadm config images pull
+    

@@ -1,0 +1,24 @@
+---
+
+- name: Configuración del firewall para los workers de kubernetes
+  hosts: [workers]
+  become: true
+
+  tasks:
+
+    - name: Configurando el puerto 10250
+      firewalld:
+        port: 10250/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Configurando el rango de puertos 30000-32767
+      firewalld:
+        port: 30000-32767/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Reload de firewalld
+      systemd:
+        name: firewalld
+        state: reloaded

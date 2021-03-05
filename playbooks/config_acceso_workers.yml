@@ -1,0 +1,19 @@
+---
+
+- name: Configuración del firewall para el acceso de los workers
+  hosts: [master]
+  become: true
+
+  tasks:
+
+    - name: Configurando acceso del worker
+      firewalld:
+        rich_rule: rule family=ipv4 source address=192.168.1.111/32 accept
+        permanent: yes
+        state: enabled
+
+    - name: Reload de firewalld
+      systemd:
+        name: firewalld
+        state: reloaded
+

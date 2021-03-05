@@ -1,0 +1,20 @@
+---
+
+- name: Install Docker
+  hosts: [master, workers]
+  become: true
+
+  tasks:
+    
+    - name: Añadir repositorio Docker CE
+      command: dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+      
+    - name: Instalar Docker CE
+      dnf:
+        name: [docker-ce-19.03.14-3.el8, containerd.io]
+
+    - name: Activar docker en el arranque de la maquina
+      command: systemctl enable docker
+
+    - name: Iniciar servicio Docker
+      command: systemctl start docker

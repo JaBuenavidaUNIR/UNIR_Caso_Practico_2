@@ -1,0 +1,16 @@
+---
+
+- name: Configuraciones de Calico
+  hosts: [master]
+  become: true
+
+  tasks:
+    
+    - name: Copiando custom-resources
+      ansible.builtin.copy:
+        src: ./custom-resources.yaml
+        dest: /opt/custom-resources.yaml 
+    
+    - name: Instalando calico
+      command: kubectl apply -f /opt/custom-resources.yaml
+    

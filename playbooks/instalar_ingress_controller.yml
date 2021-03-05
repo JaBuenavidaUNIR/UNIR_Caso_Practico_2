@@ -1,0 +1,13 @@
+---
+
+- name: Instalando ingress-controller
+  hosts: [master]
+  become: true
+
+  tasks:
+
+    - name: Instalando
+      command: kubectl apply -f https://raw.githubusercontent.com/haproxytech/kubernetes-ingress/v1.5/deploy/haproxy-ingress.yaml
+      register: result_install
+
+    - debug: msg="{{ result_install.stdout }}"

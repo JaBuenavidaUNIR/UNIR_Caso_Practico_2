@@ -1,0 +1,13 @@
+---
+
+- name: Unir workers al cluster
+  hosts: [workers]
+  become: true
+
+  tasks:
+
+    - name: Uniendo workers
+      command: kubeadm join 192.168.1.110:6443 --token lqvxrd.a1wbyg8fwkszmkca --discovery-token-ca-cert-hash sha256:1ad96c01de08ff1d4e52d6805652a215d1af819ab3598772b871c86fdb0c1abb
+      register: unir_worker
+
+    - debug: msg="{{ unir_worker.stdout }}"

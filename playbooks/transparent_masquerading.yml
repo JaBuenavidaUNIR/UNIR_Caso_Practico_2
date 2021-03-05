@@ -1,0 +1,17 @@
+---
+
+- name: Configuraciones de Firewall (transparent masquerading)
+  hosts: [master, workers]
+  become: true
+
+  tasks:
+
+    - name: Netfilter
+      command: modprobe br_netfilter
+
+    - name: Add masquerade
+      command: firewall-cmd --add-masquerade --permanent
+
+    - name: Recargar firewall
+      command: firewall-cmd --reload
+    

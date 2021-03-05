@@ -1,0 +1,23 @@
+---
+
+- name: Instalación de Kubernetes
+  hosts: [master, workers]
+  become: true
+
+  tasks:
+    
+    - name: Configurando el repo
+      ansible.builtin.copy:
+        src: ./kubernetes.repo
+        dest: /etc/yum.repos.d/kubernetes.repo
+
+    - name: Instalar Kubelet, kubeadm, kubectl
+      dnf:
+        name: [kubelet, kubeadm, kubectl]
+        disable_excludes: kubernetes
+
+    - name: Activar kubelet en el arranque de la maquina
+      command: systemctl enable docker
+
+    - name: Iniciar servicio kubelet
+      command: systemctl start docker

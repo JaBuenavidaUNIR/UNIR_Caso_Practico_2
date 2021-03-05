@@ -1,0 +1,13 @@
+---
+
+- name: Instalar Showmount
+  hosts: [master, workers]
+  become: true
+
+  tasks:
+
+    - name: Instalar Showmount
+      dnf:
+        name: showmount
+        state: latest
+    

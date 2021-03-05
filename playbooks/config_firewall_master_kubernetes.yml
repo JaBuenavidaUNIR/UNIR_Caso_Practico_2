@@ -1,0 +1,48 @@
+---
+
+- name: Configuración del firewall para el nodo master de kubernetes
+  hosts: [master]
+  become: true
+
+  tasks:
+
+    - name: Configurando el puerto 6443
+      firewalld:
+        port: 6443/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Configurando el rango de puertos 2379-2380
+      firewalld:
+        port: 2379-2380/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Configurando el 10250
+      firewalld:
+        port: 10250/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Configurando el 10251
+      firewalld:
+        port: 10251/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Configurando el 10252
+      firewalld:
+        port: 10252/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Configurando el 10255
+      firewalld:
+        port: 10255/tcp
+        permanent: yes
+        state: enabled
+
+    - name: Reload de firewalld
+      systemd:
+        name: firewalld
+        state: reloaded

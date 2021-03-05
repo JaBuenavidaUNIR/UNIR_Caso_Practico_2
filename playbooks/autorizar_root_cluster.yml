@@ -1,0 +1,22 @@
+---
+
+- name: Vamos a autorizar al usuario root acceder al cluster para terminar la configuración
+  hosts: [master]
+  become: true
+
+  tasks:
+
+    - name: Creando directorio
+      command: mkdir -p /root/.kube
+
+    - name: Copiando configuración
+      command: cp -i /etc/kubernetes/admin.conf /root/.kube/config
+
+    - name: Configurando permisos
+      command: chown $(id -u):$(id -g) /root/.kube/config
+
+    - name: Ver nodos
+      command: kubectl get nodes
+      register: list_nodes
+
+    - debug: msg:"{{ list_nodes.stdout }}"

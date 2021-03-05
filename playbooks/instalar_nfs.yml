@@ -1,0 +1,19 @@
+---
+
+- name: Instalar e iniciar NFS
+  hosts: nfs
+  become: true
+
+  tasks:
+
+    - name: Instalar NFS y Net-Tools
+      dnf:
+        name: [nfs-utils, net-tools]
+        state: latest
+
+    - name: Iniciar servicio NFS-Server en el arranque
+      command: systemctl enable nfs-server
+
+    - name: Iniciar chronyd
+      command: systemctl start nfs-server
+    

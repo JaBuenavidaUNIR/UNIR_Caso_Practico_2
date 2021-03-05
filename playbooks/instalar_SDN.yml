@@ -1,0 +1,14 @@
+---
+
+- name: Instalando operador de Tigera
+  hosts: [master]
+  become: true
+
+  tasks:
+
+    - name: Configurando Tigera
+      command: kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
+      register: result_tigera
+
+    - debug: msg="{{ result_tigera.stdout }}"
+

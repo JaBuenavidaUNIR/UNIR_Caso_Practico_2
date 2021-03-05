@@ -1,0 +1,11 @@
+---
+
+- name: Desactivar Swap
+  hosts: [master, workers]
+  become: true
+
+  tasks:
+    
+    - name: Desactivar
+      command: swapoff  -a
+    

@@ -1,0 +1,14 @@
+---
+
+- name: Instalamos el plugin CNI (Container Network Interface) de kubernetes y definimos la red de los PODs
+  hosts: [master]
+  become: true
+
+  tasks:
+
+    - name: Configurando CNI
+      command: kubeadm init --pod-network-cidr 192.169.0.0/16
+      register: result_CNI
+
+    - debug: msg="{{ result_CNI.stdout }}"
+
